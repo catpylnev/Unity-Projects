@@ -8,11 +8,14 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float runSpeed = 10f;
     [SerializeField] float jumpSpeed = 10f;
+    [SerializeField] float climbingSpeed = 8f;
 
     Rigidbody2D myrigidbody2D;
     Animator myAnimator;
     BoxCollider2D myBoxCollider2D;
     PolygonCollider2D myPlayersFeet;
+
+    float startingGravityScale;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,8 @@ public class Player : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         myBoxCollider2D = GetComponent<BoxCollider2D>();
         myPlayersFeet = GetComponent<PolygonCollider2D>();
+
+        startingGravityScale = myrigidbody2D.gravityScale;
     }
 
     // Update is called once per frame
@@ -28,7 +33,27 @@ public class Player : MonoBehaviour
     {
         Run();
         Jump();
-        
+        Climb();
+    }
+
+    private void Climb()
+    {
+        if (myBoxCollider2D.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            float controlThrow = CrossPlatformInputManager.GetAxis("Vertical");
+            Vector2 climbingVelocity = new Vector2(myrigidbody2D.velocity.x, controlThrow * climbingSpeed);
+
+            myrigidbody2D.velocity = climbingVelocity;
+
+            myAnimator.SetBool("Climbing", true);
+
+            myrigidbody2D.gravityScale = 0f;
+        }
+        else
+        {
+            myAnimator.SetBool("Climbing", false);
+            myrigidbody2D.gravityScale = startingGravityScale;
+        }
     }
 
     private void Jump()
