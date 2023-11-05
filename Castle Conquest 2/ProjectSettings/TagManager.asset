@@ -16,7 +16,7 @@ TagManager:
   - Player
   - World Confiner
   - Enemy
-  - 
+  - Bomb
   - 
   - 
   - 
@@ -55,6 +55,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1244428563
+    locked: 0
+  - name: Bomb
+    uniqueID: 613722079
     locked: 0
   - name: Foreground
     uniqueID: 3416827719
