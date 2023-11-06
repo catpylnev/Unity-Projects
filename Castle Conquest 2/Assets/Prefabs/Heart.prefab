@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8462523426232391891}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.8, y: -2.7, z: -0.401227}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -165,3 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127c76e9a92bb0c4eb913fe9e64f25a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HeartPickupSFX: {fileID: 8300000, guid: 9a3f7247df3aa1a46a7d006e84205da8, type: 3}
