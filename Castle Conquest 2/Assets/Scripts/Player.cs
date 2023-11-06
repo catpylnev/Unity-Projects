@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpSpeed = 10f;
     [SerializeField] float climbingSpeed = 8f;
     [SerializeField] Vector2 hitKick = new Vector2(50f, 50f);
+    [SerializeField] Transform hurtBox;
+    [SerializeField] float attackRadius = 3f;
 
     Rigidbody2D myrigidbody2D;
     Animator myAnimator;
@@ -35,25 +37,59 @@ public class Player : MonoBehaviour
     {
         if(!isHurting)
         {
-             Run();
+            Run();
             Jump();
             Climb();
+            Attack();
 
             if (myBoxCollider2D.IsTouchingLayers(LayerMask.GetMask("Enemy")))
             {
                 PlayerHit();
             }
+
+            ExitLevel();
         }
            
         
     }
 
-    private void PlayerHit()
+    private void ExitLevel()
+    {
+        if (myBoxCollider2D.IsTouchingLayers(LayerMask.GetMask("Interactable")))
+        {
+            if (FindObjectOfType<ExitDoor>() != null)
+            {
+                FindObjectOfType<ExitDoor>().StartLoadingNextLevel();
+            }
+            else
+            {
+                Debug.LogError("ExitDoor not found.");
+            }
+        }
+    }
+
+    private void Attack()
+    {
+        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
+        {
+            myAnimator.SetTrigger("Attacking");
+            Collider2D[] enemiesToHit = Physics2D.OverlapCircleAll(hurtBox.position, attackRadius, LayerMask.GetMask("Enemy"));
+        
+            foreach(Collider2D enemy in enemiesToHit)
+            {
+                enemy.GetComponent<Enemy>().Dying();
+            }
+        }
+    }
+
+    public void PlayerHit()
     {
         myrigidbody2D.velocity = hitKick * new Vector2(-transform.localScale.x, 1f);
 
         myAnimator.SetTrigger("Hitting");
         isHurting = true;
+
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
 
         StartCoroutine(StopHurting());
     }
@@ -125,5 +161,10 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector2(Mathf.Sign(myrigidbody2D.velocity.x), 1f);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(hurtBox.position, attackRadius);
     }
 }

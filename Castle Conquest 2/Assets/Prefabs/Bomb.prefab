@@ -165,3 +165,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd1a41b601fc044e92c71bc35abd568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radius: 5
+  explosionForce: {x: 2500, y: 0}
