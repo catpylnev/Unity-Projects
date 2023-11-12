@@ -4,11 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Item
-  - Wolf
-  - Chicken
-  - Seeds
-  - Boat
+  - Plate
+  - Cupcake
   layers:
   - Default
   - TransparentFX
@@ -16,9 +13,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Background
-  - Player
-  - Transport
+  - Cupcake
+  - Plate
+  - 
   - 
   - 
   - 
@@ -46,12 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 1853849971
+  - name: Plate
+    uniqueID: 4264196063
     locked: 0
-  - name: Transport
-    uniqueID: 3894599129
-    locked: 0
-  - name: Player
-    uniqueID: 1122526545
+  - name: Cupcake
+    uniqueID: 175846681
     locked: 0
